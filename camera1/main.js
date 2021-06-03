@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 EdgerOS Team.
+ * Copyright (c) 2021 EdgerOS Team.
  * All rights reserved.
  *
  * Detailed license information can be found in the LICENSE file.
@@ -10,8 +10,8 @@
  *
  */
 
-var WebApp = require('webapp');
-var iosched = require('iosched');
+/* Import system modules */
+const WebApp = require('webapp');
 var WebMedia = require('webmedia');
 var onvif = require('@edgeros/jsre-onvif');
 const {Manager} = require('@edgeros/jsre-medias');
@@ -228,13 +228,11 @@ app.post('/api/login', (req, res) => {
 	});
 });
 
-/* app start */
+/* Start App */
 app.start();
 
 /* Start media server. */
 Task.nextTick(startServer);
 
-/*
- * Event loop
- */
-iosched.forever();
+/* Event loop */
+require('iosched').forever();
