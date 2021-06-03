@@ -122,7 +122,7 @@ server.on('start', () => {
 
 ![ui](./res/camera1/ui.png)
 
-+ `eap-demo-camera-base` 工程获取地址：【https://gitee.com/edgeros/eap-demo-camera-base.git】或 【https://github.com/edgeros/eap-demo-camera-base.git】，目录结构如下：
++ `eap-demo-camera-base` 工程获取地址：【 https://gitee.com/edgeros/eap-demo-camera-base.git 】或 【 https://github.com/edgeros/eap-demo-camera-base.git 】，目录结构如下：
 
 ```
 eap-demo-camera-base
