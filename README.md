@@ -1,1 +1,2 @@
-多媒体应用开发请参考指南：https://www.t.e0a.cc/docs/edgeros -> 【进阶】 -> 【多媒体应用开发】。
+多媒体应用开发请参考指南：https://www.edgeros.com/edgeros/guide/tutorial_adv/multimedia.html。
+
