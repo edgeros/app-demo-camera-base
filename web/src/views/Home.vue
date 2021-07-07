@@ -6,24 +6,13 @@
           v-for="(dev, index) of devs"
           :title="dev.alias"
           :label="dev.devId"
+          :icon="require('../assets/img/camera.png')"
           :key="index"
           is-link="true"
-          center="true"
+          center="false"
           value-class="cell-value"
           @click="loginDev(dev)"
         >
-          <template #icon>
-            <van-image
-              width="50"
-              height="50"
-              :src="require('../assets/img/camera.png')"
-            />
-          </template>
-          <template #default>
-            <span > 
-              {{ dev.status ? '连接' : '未连接' }}
-            </span>
-          </template>
         </van-cell>
       </van-list>
       <input-dialog :show="show" :dev="curDev" @close="onDialog">
@@ -51,12 +40,6 @@ export default {
       if (dev.status) {
         this.$router.push({name: 'Camera', params: dev});
       } else {
-        /**
-         * 对话框，获取输入账号
-         * post 请求
-         * 根据结果修改状态
-         * 如果连接成功，路由到播放页
-         */
         this.curDev = dev;
         this.show = true;
       }
@@ -69,22 +52,25 @@ export default {
       })
       .catch((error) => {
         if (error.status === 400) {
-        this.$notify({ type: "danger", message: "参数错误！" });
+          this.$notify({ type: "danger", message: "参数错误！" });
         } else if (error.status === 503) {
-        this.$notify({ type: "danger", message: error.error });
-        console.log(error.error);
+          this.$notify({ type: "danger", message: error.error });
+          console.log(error.error);
         } else if (error.status === 403) {
-        this.$notify({ type: "danger", message: "无访问权限！" });
-        console.log("无访问权限！");
+          this.$notify({ type: "danger", message: "无访问权限！" });
+          console.log("无访问权限！");
         } else {
-        this.$notify({ type: "danger", message: "未知错误！" });
-        console.log("未知错误！");
+          this.$notify({ type: "danger", message: "未知错误！" });
+          console.log("未知错误！");
         }
       });
     },
     onDialog(ret, dev, user, pwd) {
       console.log(`ret=${ret}, user=${user}, pwd=${pwd}, show=${this.show}`);
       this.show = false;
+      if (!ret) {
+        return;
+      }
       axios.post('/api/login', {devId: dev.devId, username: user, password: pwd}, { headers: getHeaders() })
       .then((res) => {
         if (res.data.result) {
@@ -92,23 +78,21 @@ export default {
           dev.status = true;
           this.$router.push({name: 'Camera', params: dev});
         } else {
-          // this.$router.push({name: 'Camera', params: dev}); // TEST
           this.$notify({ type: "danger", message: "非摄像头设备或者账号错误！" });
         }
       })
       .catch((error) => {
-        // this.$router.push({name: 'Camera', params: dev}); // TEST
         if (error.status === 400) {
-        this.$notify({ type: "danger", message: "参数错误！" });
+          this.$notify({ type: "danger", message: "参数错误！" });
         } else if (error.status === 503) {
-        this.$notify({ type: "danger", message: error.error });
-        console.log(error.error);
+          this.$notify({ type: "danger", message: error.error });
+          console.log(error.error);
         } else if (error.status === 403) {
-        this.$notify({ type: "danger", message: "无访问权限！" });
-        console.log("无访问权限！");
+          this.$notify({ type: "danger", message: "无访问权限！" });
+          console.log("无访问权限！");
         } else {
-        this.$notify({ type: "danger", message: "未知错误！" });
-        console.log("未知错误！");
+          this.$notify({ type: "danger", message: "未知错误！" });
+          console.log("未知错误！");
         }
       });
     },
@@ -124,14 +108,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.img {
-  margin-left: 0px;
-  float: left;
-}
-.cell-value {
-  width: 60px;
-  float: right;
-}
-</style>

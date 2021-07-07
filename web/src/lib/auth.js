@@ -4,7 +4,7 @@ const auth = {
 };
 
 export function getAuth() {
-	return {token: auth.token, srand: auth.srand};
+  return {token: auth.token, srand: auth.srand};
 }
 
 export function setToken(payload) {
@@ -17,7 +17,7 @@ export function setSrand(payload) {
 
 export function getHeaders() {
   return {
-      'edger-token': auth.token,
-      'edger-srand': auth.srand
+    'edger-token': auth.token,
+    'edger-srand': auth.srand
   };
 }
