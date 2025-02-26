@@ -1,1 +1,1 @@
-NodePlayer version: 0.5.64
+NodePlayer version: 1.2.0
